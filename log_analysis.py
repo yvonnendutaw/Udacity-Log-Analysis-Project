@@ -38,10 +38,34 @@ def three_most_popular_articles(db_cursor):
         print('"{title}" -- {count} views'
               .format(title=article[0], count=article[1]))
     return
+
+def most_popular_authors(db_cursor):
+    """Query and print out the most popular authors.
+    counts all the authors who's articles are most popular
+    """
+    db_cursor.execute("""
+            SELECT authors.name, count(*)
+            FROM log, articles, authors
+            WHERE  log.path = concat('/article/', articles.slug)
+            AND  articles.author = authors.id
+            GROUP BY authors.name
+            ORDER BY count(*) DESC;
+            """)
+
+    authors = db_cursor.fetchall()
+    print(' ')
+    print('The most popular authors of all time:')
+
+    for author in authors:
+        print('{author_name} -- {count} views'
+              .format(author_name=author[0], count=author[1]))
+    return
+
         
 
 if __name__ == "__main__":
     db_connection = connect_to_database()
     if db_connection:
         three_most_popular_articles(db_connection)
+        most_popular_authors(db_connection)
         db_connection.close()
