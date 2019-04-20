@@ -2,7 +2,7 @@
 The Log Analysis project is part of the  Full Stack Web Developer Nanodegree program at Udacity.
 
 ## What is it for?
-This project will be used to create a report on the most popular three articles of all time from the data in a [database file](newsdata.zip). This will be done using SQL queries to answer the following questions:
+This project will be used to create a report on the most popular three articles of all time from the data in a [database file](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip). This will be done using SQL queries to answer the following questions:
 
 1. What are the most popular three articles of all time?
 2. Who are the most popular article authors of all time?
