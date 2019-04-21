@@ -2,7 +2,7 @@
 The Log Analysis project is part of the  Full Stack Web Developer Nanodegree program at Udacity.
 
 ## What is it for?
-This project will be used to create a report on the most popular three articles of all time from the data in a [database file](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip). This will be done using SQL queries to answer the following questions:
+This project will be used to create a report on the most popular three articles of all time from the data in a [database file](newsdata.zip). This will be done using SQL queries to answer the following questions:
 
 1. What are the most popular three articles of all time?
 2. Who are the most popular article authors of all time?
@@ -59,6 +59,30 @@ psql -d news -f newsdata.sql
 
 ```bash
 python log_analysis.py
+```
+
+### For question three you will need to create the following view in psql:
+
+
+```bash
+CREATE VIEW total_views AS SELECT date(time), count(*)
+As views FROM Log
+GROUP BY date(time)
+ORDER BY date(time);
+```
+```bash
+CREATE VIEW error_views AS SELECT date(time), count(*) 
+As errors FROM Log WHERE Status = '404 NOT FOUND' 
+GROUP BY date(time) 
+ORDER BY date(time);
+```
+```bash
+
+CREATE VIEW error_rate AS
+SELECT total_views.date, (100.0*error_views.errors/total_views.views) AS percentage
+FROM total_views, error_views
+WHERE total_views.date = error_views.date
+ORDER BY total_views.date;
 ```
 9. If you wish to shut down the VM you can do so with the following command:
 ```bash
